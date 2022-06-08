@@ -1,8 +1,9 @@
-import React from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { useRouter } from 'next/dist/client/router';
-import { format } from 'date-fns';
+import React from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { useRouter } from "next/dist/client/router";
+import { format } from "date-fns";
+import InfoCard from "../components/InfoCard";
 
 function Search({ searchResults }) {
   const router = useRouter();
@@ -10,8 +11,8 @@ function Search({ searchResults }) {
   console.log(router.query);
   const { location, startDate, endDate, noOfGuests } = router.query;
 
-  const formattedStartDate = format(new Date(startDate), 'yyyy-MM-dd');
-  const formattedEndtDate = format(new Date(endDate), 'yyyy-MM-dd');
+  const formattedStartDate = format(new Date(startDate), "yyyy-MM-dd");
+  const formattedEndtDate = format(new Date(endDate), "yyyy-MM-dd");
   const range = `${formattedStartDate}-${formattedEndtDate}`;
   return (
     <div>
@@ -31,9 +32,34 @@ function Search({ searchResults }) {
             <p className="button">Rooms and Beds</p>
             <p className="button">More filters</p>
           </div>
-          {/* {searchResults.map((item)=> (
-
-          ))} */}
+          <div className="flex flex-col">
+            {searchResults.map(
+              ({
+                img,
+                location,
+                title,
+                description,
+                star,
+                price,
+                total,
+                long,
+                lat,
+              }) => (
+                <InfoCard
+                  key={img}
+                  img={img}
+                  location={location}
+                  title={title}
+                  description={description}
+                  star={star}
+                  price={price}
+                  total={total}
+                  long={long}
+                  lat={lat}
+                />
+              )
+            )}
+          </div>
         </section>
       </main>
       <Footer />
@@ -44,7 +70,7 @@ function Search({ searchResults }) {
 export default Search;
 
 export async function getServerSideProps() {
-  const searchResults = await fatch('https://links.papareact.com/isz').then(
+  const searchResults = await fetch("https://links.papareact.com/isz").then(
     (res) => res.json()
   );
   return {

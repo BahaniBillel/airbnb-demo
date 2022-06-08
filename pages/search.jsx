@@ -31,9 +31,9 @@ function Search({ searchResults }) {
             <p className="button">Rooms and Beds</p>
             <p className="button">More filters</p>
           </div>
-          {searchResults.map((item)=> (
-            
-          ))}
+          {/* {searchResults.map((item)=> (
+
+          ))} */}
         </section>
       </main>
       <Footer />
